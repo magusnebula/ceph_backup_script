@@ -1,0 +1,12 @@
+# YMCA_pool.conf
+# 
+# poolname - Name of pool to be backed up in Ceph
+# fullday - day that the script should archive the last 7 days worth of backups
+#           and create a new full/initial snapshot export. Note that this is numerical and 
+#           monday starts the week, monday=1 ... sunday= 7
+# retention - how long backups should be kept before the archive is pruned off 
+
+[PoolInfo]
+poolname = volumes-stg
+fullday = 5
+retention = 28
