@@ -1,6 +1,8 @@
 # Ceph RBD backup script
 
- Still a major work in progress. Releasing the v0.1.1 of **ceph\_rbd\_bck.sh**. I wrote this to provide an opensource solution to backing Ceph pools. I needed something to not only backup individual images in specified pools, but to also be able to set retention dates, and implement a synthetic full backup schedule. This is an extremely easy script intended help other people backup thier systems, or develop a more robust backup solution.
+ *Still a major work in progress. Ill be working on a retention function as well as a recovery script.*
+ 
+ Releasing the v0.1.1 of **ceph\_rbd\_bck.sh**. I wrote this to provide an opensource solution to backing Ceph pools. I needed something to not only backup individual images in specified pools, but to also be able to set retention dates, and implement a synthetic full backup schedule. This is an extremely easy script intended help other people backup thier systems, or develop a more robust backup solution.
 
 ## Getting started
 
