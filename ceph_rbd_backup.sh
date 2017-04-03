@@ -7,7 +7,7 @@
     TIME_START=$(date +%Y-%m-%d:%H:%M)
     TODAY=$(date --rfc-3339=date)
     NFS_DIR=/mnt/ceph_backups
-    RBD_BCK_DIR=/opt/ceph-backups
+    RBD_BCK_DIR=/opt/ceph-backup
     CONFIG_DIR=/opt/ceph-backup/config/
     LASTWEEK=$(date +%Y-%m-%d -d "-7 days")
 
@@ -48,6 +48,9 @@ function archive() {
     fi
 }
 
+function retention() {
+      find $1/* -mtime +$2 | xargs rm
+}
 
 # Its go time
 log "$INFO_MSG Ceph Backup Started $TIME_START"
@@ -62,6 +65,7 @@ if [[ -z "$POOL" ]]; then
 fi
 
 FULL_DAY=$(awk '/^\[PoolInfo\]/{f=1} f==1&&/^fullday/{print $3;exit}' "${CONFIG}")
+RETENTION=$(awk '/^\[PoolInfo\]/{f=1} f==1&&/^retention/{print $3;exit}' "${CONFIG}")
 
 log "$INFO_MSG Backing up images in $POOL"
 
@@ -74,6 +78,7 @@ IMAGE_DIR="$NFS_DIR/$POOL/$LOCAL_IMAGE"
 
 if [[ ${FULL_DAY} == $(date +%u) ]]; then
     archive
+    retention ${IMAGE_DIR} ${RETENTION}
 fi
 
 log "$INFO_MSG Backing up image - $LOCAL_IMAGE"
