@@ -73,7 +73,7 @@ function log () {
             echo "$1" >> $LOG_FILE
 }
 ```
-#### Archiveing Function
+#### Archiving Function
 
 This finds everything less than 7 days old (*mtime -6*), excluding tar.gz files, in the backup folder for the specific image.
 If the archive exsits, remove all the old files and purge all snapshots. This will trigger a new full and initial snapshot to be created.
