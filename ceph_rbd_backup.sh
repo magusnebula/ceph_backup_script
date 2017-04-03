@@ -52,6 +52,13 @@ function retention() {
       find $1/* -mtime +$2 | xargs rm
 }
 
+# Changes underscores to dashes
+function stripper() {
+      local lvar=$1
+      lvar=$(echo $1|sed -e 's/_/-/g')
+      echo $lvar
+}
+
 # Its go time
 log "$INFO_MSG Ceph Backup Started $TIME_START"
 
@@ -75,6 +82,10 @@ log "$INFO_MSG Backing up images in $POOL"
 for LOCAL_IMAGE in $IMAGES; do
 
 IMAGE_DIR="$NFS_DIR/$POOL/$LOCAL_IMAGE"
+
+# Change any underscored to dashes using stripper function. Underscores are used by the script
+#   as a delimiter. This is a safeguard for LATEST_SNAP and LAST_SNAP
+LOCAL_IMAGE=$(stripper $LOCAL_IMAGE)
 
 if [[ ${FULL_DAY} == $(date +%u) ]]; then
     archive
