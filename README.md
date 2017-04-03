@@ -91,3 +91,14 @@ function archive() {
     fi
 }
 ```
+
+#### Retention Function
+
+This finds everything older than a given varible "**[retention_time]**" (*mtime +[retention_time]*) in the backup folder for the specific image and deletes it. This is very simple and  is just here to delete old archive files. **Note: I will add in eventually a safeguard to ensure that only compressed archives get the axe.**
+
+```bash
+# Usage: retention [bck_directory] [retention_time]
+function retention() {
+      find $1/* -mtime +$2 | xargs rm
+}
+```
